@@ -80,3 +80,87 @@ D-Link DGS-1100-08 (Smart Managed Switch)
 grzegorz.czesnik@hotmail.com
 
 grzegorz@net59.pl
+
+----------------------------
+
+🇵🇱 Polski
+📌 Opis
+
+Repozytorium zawiera szablon Zabbix (SNMP) do monitorowania przełącznika D-Link DGS-1100-08.
+
+Szablon jest przygotowany dla Zabbix 7.4 i wykorzystuje SNMP do zbierania danych o wydajności, dostępności oraz interfejsach sieciowych. Zawiera również elementy obliczeniowe i wyzwalacze pomagające wykrywać przeciążenie CPU oraz utratę pakietów.
+
+🧩 Funkcje
+
+Monitoring SNMP dla D-Link DGS-1100-08
+
+Sprawdzanie dostępności ICMP
+
+Elementy obliczeniowe (np. współczynnik gubienia pingów – wskaźnik obciążenia CPU)
+
+Monitoring portów i statystyk interfejsów
+
+Gotowe wyzwalacze (triggers)
+
+Przypisanie do grupy Templates / Network devices
+
+⚙️ Wymagania
+
+Zabbix Server / Proxy 7.4 lub nowszy
+
+Przełącznik D-Link DGS-1100-08
+
+Włączony SNMP na przełączniku
+
+Skonfigurowana community SNMP (v1/v2c) lub dane SNMP
+
+📥 Instalacja
+
+Pobierz plik:
+
+SNMP D-Link DGS-1100-08.yaml
+
+
+W interfejsie Zabbix przejdź do:
+
+Zbieranie danych → Szablony
+
+Kliknij Importuj
+
+Wskaż plik .yaml
+
+Przypisz szablon SNMP D-Link DGS-1100-08 do hosta
+
+🛠 Konfiguracja
+
+Upewnij się, że SNMP jest włączony na switchu
+
+Skonfiguruj interfejs SNMP na hoście w Zabbix
+
+Ustaw poprawną community SNMP
+
+Sprawdź poprawność adresu IP / DNS hosta
+
+📊 Monitorowane dane (przykłady)
+
+ICMP echo request / reply
+
+Współczynnik gubienia pakietów ICMP (element obliczeniowy)
+
+Ruch i statystyki portów
+
+Dostępność urządzenia
+
+Pośrednia detekcja przeciążenia CPU
+
+🧪 Testowane
+
+Zabbix 7.4
+
+D-Link DGS-1100-08 (Smart Managed Switch)
+
+👤 Autor
+
+grzegorz.czesnik@hotmail.com
+
+grzegorz@net59.pl
