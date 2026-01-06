@@ -26,6 +26,8 @@ Optimization: Applied Discard unchanged with heartbeat (1d) preprocessing to inv
 Tagging: Full implementation of modern tagging standards for better filtering:
 target: interface vs target: device
 scope: health vs scope: performance
+
+
 🇵🇱 Polska Wersja
 🚀 Duża Aktualizacja: Dashboard "Enterprise Light" i standardy Zabbix 7.4
 Data: 06.01.2026
