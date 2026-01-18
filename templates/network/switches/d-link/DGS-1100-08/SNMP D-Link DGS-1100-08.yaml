@@ -42,7 +42,7 @@ zabbix_export:
           triggers:
             - uuid: 7dca8b5440a0403ea70b138a39222f9a
               expression: 'min(/SNMP D-Link DGS-1100-08/icmp.drop.ratio, 3m) > 0'
-              name: 'Performance: Switch CPU is stressed (ICMP drops detected)'
+              name: 'Performance: High ICMP Packet Loss (Possible CPU Stress)'
               priority: WARNING
               description: 'Switch otrzymuje żądania ICMP Echo (Ping), ale nie na wszystkie odpowiada. W przypadku tego modelu D-Linka oznacza to wysokie obciążenie procesora (CPU) lub atak DDoS.'
               tags:
