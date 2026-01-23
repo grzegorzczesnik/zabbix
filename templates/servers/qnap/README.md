@@ -1,190 +1,110 @@
-Zabbix Template: QNAP TVS-473e (SNMP)
-
-[!IMPORTANT]
-Release Candidate (RC 1.0)
-This is a candidate version of the template. While it is fully functional, it is currently in the testing phase. Please report any issues or suggestions.
-
-Overview
-
-This is a Zabbix template designed specifically for the QNAP TVS-473e NAS, utilizing the SNMP agent. It provides comprehensive monitoring of hardware health, performance, storage, and network statistics.
-
-Zabbix Version: 7.4 (Required due to newer widget types like Honeycomb).
-
-Features
-
-System Monitoring
-
-CPU: Usage (%), Temperature (°C).
-Memory: Total and Free memory.
-System: Model name, Serial number, Firmware version (with change detection), System Temperature.
-Uptime: Monitoring of System, Hardware, and Network uptime.
-
-Low-Level Discovery (LLD)
-
-The template automatically discovers the following components:
-
-Physical Drives:
-
-Capacity, Temperature, Drive Type (HDD/SSD/NVMe).
-SMART Status (Normalized to Good/Warning/Error).
-"Is Global Spare" status.
-
-Logical Volumes:
-
-Total size and Free space.
-Triggers for low and critically low free space.
-
-RAID Groups:
-
-RAID Level and Status (e.g., Ready, Degraded).
-
-Network Interfaces:
-
-Incoming/Outgoing traffic, Errors, Discards.
-Interface Speed, Operational Status, MAC Address.
-
-Fans:
-
-Fan speed (RPM) with low-speed alerts.
-
-System Components:
-
-Internal slots/sensors temperature.
-
-Power Supply:
-
-Note: Disabled by default in the template as this model usually relies on an external block or single PSU, but the rule is present.
-
-Installation
-
-QNAP Configuration:
-Log in to your QNAP NAS.
-Go to Control Panel > Network & File Services > SNMP.
-Enable the SNMP Service (select SNMP V1/V2c).
-Set a Community string (e.g., public or a custom one).
-Apply settings.
-
-Zabbix Configuration:
-
-Download the SNMP QNAP TVS-473e.yaml file.
-Go to Data collection > Templates > Import.
-Select the file and import.
-Create a Host for your QNAP NAS.
-Add the SNMP interface (IP address of the NAS, Port 161).
-Set the {$SNMP.COMMUNITY} macro on the host (if not using the global default).
-Link the template: SNMP QNAP TVS-473e.
-
-Macros & Customization
-
-You can adjust the following macros to tune the alerting thresholds:
-
-Macro	Default	Description
-
-{$CPU.UTIL.CRIT}	90	Critical CPU utilization threshold (%) for 5 minutes.
-{$TEMP.CPU.CRIT}	85	Critical CPU temperature threshold (°C).
-{$TEMP.DISK.WARN}	55	Warning threshold for Disk temperature (°C).
-{$TEMP.DISK.CRIT}	65	Critical threshold for Disk temperature (°C).
-{$NET.IF.IFNAME.MATCHES}	^eth[0-3]+$	Regular expression to match specific interfaces (Physical ports).
-{$NET.IF.IFNAME.NOT_MATCHES}	(veth|vnet|docker|lo|lxc|qvs|dummy)	Filter to exclude virtual interfaces.
-
-Dashboard
-
-The template includes a pre-configured dashboard "QNAP TVS-473e Overview" featuring:
-Honeycomb widgets: For physical disk SMART status and Network Port status.
-Gauges: CPU Usage, CPU Temp, System Temp, Memory Usage.
-Graphs: Network traffic, Disk temperatures, Fan speeds.
-Top Items: Logical volumes with the lowest free space.
-
-
-Zabbix Szablon: QNAP TVS-473e (SNMP)
-
-[!IMPORTANT]
-Wersja Kandydująca (RC 1.0)
-Jest to wersja kandydująca (Release Candidate) szablonu. Mimo że jest w pełni funkcjonalna, znajduje się obecnie w fazie testów. Proszę o zgłaszanie wszelkich błędów lub sugestii.
-
-Przegląd
-Szablon Zabbix przeznaczony do monitorowania serwera NAS QNAP TVS-473e przy użyciu agenta SNMP. Zapewnia szczegółowy wgląd w stan sprzętu, wydajność, pamięć masową oraz statystyki sieciowe.
-Wersja Zabbix: 7.4 (Wymagana ze względu na wykorzystanie nowych typów widżetów, np. Honeycomb).
-
-Funkcjonalności
-
-Monitorowanie Systemu
-
-Procesor (CPU): Użycie (%), Temperatura (°C).
-Pamięć RAM: Całkowita i wolna pamięć.
-System: Model urządzenia, Numer seryjny, Wersja Firmware (z wykrywaniem zmian), Temperatura systemu.
-Uptime: Czas pracy systemu, warstwy sprzętowej oraz sieciowej.
-Wykrywanie Niskopoziomowe (LLD)
-
-Szablon automatycznie wykrywa następujące komponenty:
-
-Dyski fizyczne:
-
-Pojemność, Temperatura, Typ dysku (HDD/SSD/NVMe).
-Status SMART (Znormalizowany: Good/Warning/Error).
-Status "Global Spare".
-
-Woluminy logiczne:
-
-Rozmiar całkowity i wolna przestrzeń.
-Alarmy dla niskiego i krytycznie niskiego miejsca.
-
-Grupy RAID:
-
-Poziom RAID i Status (np. Ready, Degraded).
-
-Interfejsy sieciowe:
-
-Ruch przychodzący/wychodzący, błędy, odrzucone pakiety.
-Prędkość interfejsu, status operacyjny, adres MAC.
-
-Wentylatory:
-
-Prędkość obrotowa (RPM) wraz z alarmem o niskich obrotach/zatrzymaniu.
-
-Komponenty systemowe:
-
-Temperatury wewnętrznych slotów/czujników.
-
-Zasilanie:
-
-Uwaga: Reguła jest domyślnie wyłączona w szablonie, ponieważ ten model zazwyczaj nie raportuje zasilaczy w standardowy sposób (lub posiada zewnętrzny zasilacz).
-Instalacja
-
-Konfiguracja QNAP:
-
-Zaloguj się do QNAP.
-Przejdź do Panel Sterowania > Usługi sieciowe i plików > SNMP.
-Włącz usługę SNMP (wybierz SNMP V1/V2c).
-Ustaw nazwę społeczności (Community), np. public.
-Zapisz zmiany.
-
-Konfiguracja Zabbix:
-
-Pobierz plik SNMP QNAP TVS-473e.yaml.
-W Zabbix przejdź do Data collection > Templates > Import.
-Wybierz plik i zaimportuj go.
-Utwórz Hosta dla swojego QNAPa.
-Dodaj interfejs SNMP (adres IP NAS-a, Port 161).
-Ustaw makro {$SNMP.COMMUNITY} na hoście (jeśli jest inne niż domyślne).
-Podepnij szablon: SNMP QNAP TVS-473e.
-
-Makra i Konfiguracja
-
-Możesz dostosować poniższe makra, aby zmienić progi alarmowania:
-Makro	Domyślnie	Opis
-
-{$CPU.UTIL.CRIT}	90	Próg krytyczny zużycia procesora (%) przez 5 minut.
-{$TEMP.CPU.CRIT}	85	Próg krytyczny temperatury procesora (°C).
-{$TEMP.DISK.WARN}	55	Próg ostrzegawczy temperatury dysków (°C).
-{$TEMP.DISK.CRIT}	65	Próg krytyczny temperatury dysków (°C).
-{$NET.IF.IFNAME.MATCHES}	^eth[0-3]+$	Wyrażenie regularne dopasowujące interfejsy fizyczne.
-{$NET.IF.IFNAME.NOT_MATCHES}	(veth|vnet|docker|lo|lxc|qvs|dummy)	Filtr wykluczający interfejsy wirtualne/kontenerowe.
-
-Dashboard
-
-Szablon zawiera gotowy pulpit nawigacyjny "QNAP TVS-473e Overview", który zawiera:
-Widżety Honeycomb: Status SMART dysków oraz status portów sieciowych.
-Zegary (Gauges): Użycie CPU, Temperatura CPU, Temperatura Systemu, Pamięć.
-Wykresy: Ruch sieciowy, Temperatury dysków, Prędkości wentylatorów.
-Top Items: Woluminy z najmniejszą ilością wolnego miejsca.
+# Zabbix Template: QNAP TVS-473e (SNMP)
+
+![Zabbix](https://img.shields.io/badge/Zabbix-7.4+-d00000?style=flat-square&logo=zabbix) ![QNAP](https://img.shields.io/badge/Device-QNAP_TVS--473e-007ebc?style=flat-square&logo=qnap) ![SNMP](https://img.shields.io/badge/Protocol-SNMP_Agent-success?style=flat-square)
+
+<div align="center">
+
+**Choose your language / Wybierz język**
+
+[🇬🇧 English Description](#-english-description) &nbsp;&nbsp;|&nbsp;&nbsp; [🇵🇱 Polski Opis](#-polski-opis)
+
+</div>
+
+---
+
+<a name="-english-description"></a>
+## 🇬🇧 English Description
+
+This is a comprehensive Zabbix template designed for the **QNAP TVS-473e** NAS, utilizing the SNMP agent. It provides detailed monitoring of hardware health, performance metrics, and storage status.
+
+### ✨ Key Features
+
+* **🖥️ System Performance:**
+    * CPU Utilization & Temperature monitoring.
+    * System Uptime (Hardware, Network, SNMP).
+    * Memory Usage (Free/Total).
+* **💾 Storage & RAID:**
+    * **Physical Disks:** SMART status (Good/Warning/Error), Temperature, Capacity, Drive Type (detected via regex).
+    * **RAID Groups:** Current Level and Status.
+    * **Logical Volumes:** Free space percentage and Total size (supports TB/GB/MB conversion).
+* **❄️ Cooling & Hardware:**
+    * **Fans:** Speed (RPM) monitoring with low-speed alerts.
+    * **System Components:** Temperature and Serial Numbers.
+    * *Note: Power Supply (PSU) discovery is present but disabled by default for this model.*
+* **🌐 Network:**
+    * Traffic (In/Out), Discards, Errors, Speed, and MAC address for physical interfaces (filters out virtual adapters).
+* **📊 Dashboard:**
+    * Includes a built-in dashboard **"QNAP TVS-473e Overview"** visualizing disk health, network traffic, CPU load, and thermal status.
+
+### ⚙️ Configuration & Macros
+
+The template uses the following macros to define alert thresholds. You can customize these in the host configuration:
+
+| Macro | Default | Description |
+| :--- | :--- | :--- |
+| `{$CPU.UTIL.CRIT}` | **90**% | Critical threshold for CPU utilization (5m average). |
+| `{$TEMP.CPU.CRIT}` | **85**°C | Critical threshold for CPU temperature. |
+| `{$TEMP.DISK.CRIT}` | **65**°C | Critical temperature for physical disks (failure risk). |
+| `{$TEMP.DISK.WARN}` | **55**°C | Warning temperature for physical disks. |
+| `{$NET.IF.IFNAME.MATCHES}` | `^eth[0-3]+$` | Regex to match physical interfaces only. |
+
+### 🚀 Installation
+
+1.  Enable **SNMP v1/v2c** or **v3** on your QNAP device via QTS Control Panel.
+2.  Download the `yaml` template file.
+3.  In Zabbix, go to **Data collection** → **Templates** → **Import**.
+4.  Select the file and enable "Create new" for Template groups if necessary.
+5.  Assign the template **"SNMP QNAP TVS-473e"** to your QNAP host.
+
+---
+
+<a name="-polski-opis"></a>
+## 🇵🇱 Polski Opis
+
+To kompleksowy szablon Zabbix przygotowany dla serwerów NAS **QNAP TVS-473e**, wykorzystujący agenta SNMP. Zapewnia szczegółowy monitoring stanu sprzętu, wydajności oraz statusu dysków.
+
+### ✨ Główne funkcje
+
+* **🖥️ Wydajność Systemu:**
+    * Użycie i temperatura procesora.
+    * Czas działania (Uptime) systemu, sprzętu i sieci.
+    * Użycie pamięci RAM (Wolna/Całkowita).
+* **💾 Pamięć masowa i RAID:**
+    * **Dyski fizyczne:** Status SMART (Good/Warning/Error), Temperatura, Pojemność, Typ dysku.
+    * **Grupy RAID:** Poziom i status macierzy.
+    * **Wolumeny logiczne:** Procent wolnego miejsca i całkowity rozmiar (automatyczna konwersja TB/GB/MB).
+* **❄️ Chłodzenie i Sprzęt:**
+    * **Wentylatory:** Prędkość obrotowa (RPM) z alarmem przy zatrzymaniu lub niskich obrotach.
+    * **Komponenty:** Temperatury i Numery Seryjne.
+    * *Uwaga: Wykrywanie zasilaczy (PSU) jest domyślnie wyłączone dla tego modelu.*
+* **🌐 Sieć:**
+    * Ruch przychodzący/wychodzący, błędy, odrzucone pakiety, prędkość i adresy MAC dla interfejsów fizycznych (filtrowanie adapterów wirtualnych).
+* **📊 Dashboard:**
+    * Zawiera wbudowany pulpit **"QNAP TVS-473e Overview"** wizualizujący stan dysków, ruch sieciowy, obciążenie CPU i temperatury.
+
+### ⚙️ Konfiguracja i Makra
+
+Szablon wykorzystuje poniższe makra do definiowania progów alarmowych. Możesz je dostosować w konfiguracji hosta:
+
+| Makro | Domyślnie | Opis |
+| :--- | :--- | :--- |
+| `{$CPU.UTIL.CRIT}` | **90**% | Próg krytyczny zużycia procesora (średnia z 5 min). |
+| `{$TEMP.CPU.CRIT}` | **85**°C | Próg krytyczny temperatury procesora (przegrzanie). |
+| `{$TEMP.DISK.CRIT}` | **65**°C | Próg krytyczny temperatury dysków (ryzyko awarii). |
+| `{$TEMP.DISK.WARN}` | **55**°C | Próg ostrzegawczy temperatury dysków. |
+| `{$NET.IF.IFNAME.MATCHES}` | `^eth[0-3]+$` | Wyrażenie regularne do wykrywania tylko portów fizycznych. |
+
+### 🚀 Instalacja
+
+1.  Włącz **SNMP v1/v2c** lub **v3** na urządzeniu QNAP w Panelu Sterowania QTS.
+2.  Pobierz plik szablonu `yaml`.
+3.  W Zabbix przejdź do **Data collection** → **Templates** → **Import**.
+4.  Wybierz plik i zaznacz opcję tworzenia nowych grup, jeśli to konieczne.
+5.  Przypisz szablon **"SNMP QNAP TVS-473e"** do swojego hosta QNAP.
+
+---
+<div align="center">
+  
+<sub><b>Vendor:</b> Grzegorz Cześnik (grzegorz@net59.pl) | <b>Version:</b> RC 1.0</sub>
+
+</div>
